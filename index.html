@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My GitHub Pages</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        header p {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        nav {
+            background-color: #0056b3;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffd700;
+        }
+        section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        section h2 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .projects {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .project-card {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            width: 300px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .project-card h3 {
+            margin-top: 0;
+            color: #0056b3;
+        }
+        footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 10px;
+            }
+            section {
+                margin: 20px;
+                padding: 15px;
+            }
+            .projects {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My GitHub Pages!</h1>
+        <p>This is my personal GitHub Pages site, aimed to showcase my projects and ideas.</p>
+    </header>
+    
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#projects">My Projects</a>
+        <a href="#contact">Contact Me</a>
+    </nav>
+    
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I'm Jinshuo Li, currently an undergraduate student in the Shanghai Jiao Tong University IEEE Honor Class.</p>
+        <p>I'm interested in Mathematics, Physics, and Biology. I'm learning Computer Science now.</p>
+    </section>
+    
+    <section id="projects">
+        <h2>My Projects</h2>
+        <div class="projects">
+            <div class="project-card">
+                <h3>Beijing Subway Navigator</h3>
+                <p>A terminal-based navigation system for the Beijing Subway, built from scratch using custom Matrix and Graph implementations.</p>
+                <a href="https://github.com/JinShuo-Li/Beijing-Subway-Navigator" style="color: #007bff;">View Details</a>
+            </div>
+            <div class="project-card">
+                <h3>Mathematical Analysis Notes</h3>
+                <p>Notes for Mathematical Analysis.</p>
+                <a href="https://github.com/JinShuo-Li/Mathematical-Analysis" style="color: #007bff;">View Details</a>
+            </div>
+            <div class="project-card">
+                <h3>Mathematical Analysis Notes (Chinese)</h3>
+                <p>This is the notes of Mathematical Analysis in Chinese.</p>
+                <a href="https://github.com/JinShuo-Li/Mathematical-Analysis-cn" style="color: #007bff;">View Details</a>
+            </div>
+            <div class="project-card">
+                <h3>Linear Algebra Notes (Chinese)</h3>
+                <p>This is the notes for the Linear Algebra course's final exams. All the content is written in Chinese.</p>
+                <a href="https://github.com/JinShuo-Li/Linear-Algebra-cn" style="color: #007bff;">View Details</a>
+            </div>
+            <div class="project-card">
+                <h3>Intro to Computers and Programming Notes (Chinese)</h3>
+                <p>This is the notes of the course CS1602 specially designed for IEEE Honor Class. If you are looking for more information about this course, please visit via this link: https://github.com/ichengfan/itc</p>
+                <a href="https://github.com/JinShuo-Li/Intro-to-Computers-and-Programming-cn" style="color: #007bff;">View Details</a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>If you have any questions or are seeking collaborations, please contact me via:</p>
+        <ul>
+            <li>Email: <a href="mailto:your.email@example.com" style="color: #007bff;">ljs_2025@example.com</a></li>
+            <li>GitHub: <a href="https://github.com/JinShuo-Li" style="color: #007bff;">github.com/JinShuo-Li</a></li>
+        </ul>
+    </section>
+    
+    <footer>
+        <p>&copy; 2026 Jinshuo Li. All rights reserved.</p>
+    </footer>
+</body>
+</html>
