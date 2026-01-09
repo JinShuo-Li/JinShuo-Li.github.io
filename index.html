@@ -1,172 +1,363 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Pages</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Jinshuo Li | Portfolio</title>
+    <link href="https://gs.jurieo.com/gemini/fonts-googleapis/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
+        :root {
+            --primary-color: #2563eb;
+            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background-color: #f0f4f8;
-            color: #333;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
             line-height: 1.6;
-        }
-        header {
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-            padding: 60px 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-        header p {
-            font-size: 1.2em;
-            margin-top: 10px;
-        }
-        nav {
-            background-color: #0056b3;
-            padding: 10px 0;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-        nav a:hover {
-            color: #ffd700;
-        }
-        section {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        section h2 {
-            color: #007bff;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .projects {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            flex-direction: column;
+            min-height: 100vh;
         }
+
+        /* 头部区域 */
+        header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 导航标签栏 */
+        .nav-container {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1.2rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .tab-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* 主要内容区域 */
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* 标签内容切换逻辑 */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section h2 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 1.5rem;
+        }
+
+        /* 项目网格 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
         .project-card {
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 10px;
-            width: 300px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid rgba(0,0,0,0.05);
         }
+
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: rgba(37, 99, 235, 0.3);
         }
+
         .project-card h3 {
-            margin-top: 0;
-            color: #0056b3;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
         }
+
+        .project-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-link {
+            display: inline-block;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .btn-link:hover {
+            color: #1e40af;
+            text-decoration: underline;
+        }
+
+        /* 关于我列表 */
+        .about-list p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        /* 联系方式 */
+        .contact-list {
+            list-style: none;
+        }
+        .contact-list li {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        .contact-label {
+            font-weight: 600;
+            margin-right: 10px;
+            min-width: 80px;
+        }
+
+        /* 页脚 */
         footer {
-            background-color: #007bff;
-            color: white;
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
+            padding: 2rem;
+            background-color: white;
+            color: var(--text-light);
+            margin-top: auto;
+            border-top: 1px solid #e5e7eb;
         }
-        @media (max-width: 768px) {
-            header {
-                padding: 40px 10px;
-            }
-            section {
-                margin: 20px;
-                padding: 15px;
-            }
-            .projects {
-                flex-direction: column;
-                align-items: center;
-            }
+
+        /* 移动端适配 */
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .nav-container { overflow-x: auto; }
+            .tab-btn { padding: 1rem 1.2rem; white-space: nowrap; }
         }
     </style>
 </head>
 <body>
+
     <header>
-        <h1>Welcome to My GitHub Pages!</h1>
-        <p>This is my personal GitHub Pages site, aimed to showcase my projects and ideas.</p>
+        <h1>Welcome to My Page</h1>
+        <p>Showcasing my projects, ideas, and academic journey.</p>
     </header>
-    
-    <nav>
-        <a href="#about">About Me</a>
-        <a href="#projects">My Projects</a>
-        <a href="#contact">Contact Me</a>
-    </nav>
-    
-    <section id="about">
-        <h2>About Me</h2>
-        <p>I'm Jinshuo Li, currently an undergraduate student in the Shanghai Jiao Tong University IEEE Honor Class.</p>
-        <p>I'm interested in Mathematics, Physics, and Biology. I'm learning Computer Science now.</p>
-    </section>
-    
-    <section id="projects">
-        <h2>My Projects</h2>
-        <div class="projects">
-            <div class="project-card">
-                <h3>My Personal Website</h3>
-                <p>A GitHub Pages site built with HTML and CSS to showcase my portfolio, projects, and ideas.</p>
-                <a href="https://github.com/JinShuo-Li/JinShuo-Li.github.io" style="color: #007bff;">View Details</a>
-            </div>
-            <div class="project-card">
-                <h3>Beijing Subway Navigator</h3>
-                <p>A terminal-based navigation system for the Beijing Subway, built from scratch using custom Matrix and Graph implementations.</p>
-                <a href="https://github.com/JinShuo-Li/Beijing-Subway-Navigator" style="color: #007bff;">View Details</a>
-            </div>
-            <div class="project-card">
-                <h3>Mathematical Analysis Notes</h3>
-                <p>Notes for Mathematical Analysis.</p>
-                <a href="https://github.com/JinShuo-Li/Mathematical-Analysis" style="color: #007bff;">View Details</a>
-            </div>
-            <div class="project-card">
-                <h3>Mathematical Analysis Notes (Chinese)</h3>
-                <p>This is the notes of Mathematical Analysis in Chinese.</p>
-                <a href="https://github.com/JinShuo-Li/Mathematical-Analysis-cn" style="color: #007bff;">View Details</a>
-            </div>
-            <div class="project-card">
-                <h3>Linear Algebra Notes (Chinese)</h3>
-                <p>This is the notes for the Linear Algebra course's final exams. All the content is written in Chinese.</p>
-                <a href="https://github.com/JinShuo-Li/Linear-Algebra-cn" style="color: #007bff;">View Details</a>
-            </div>
-            <div class="project-card">
-                <h3>Intro to Computers and Programming Notes (Chinese)</h3>
-                <p>This is the notes of the course CS1602 specially designed for IEEE Honor Class. If you are looking for more information about this course, please visit via this link: https://github.com/ichengfan/itc</p>
-                <a href="https://github.com/JinShuo-Li/Intro-to-Computers-and-Programming-cn" style="color: #007bff;">View Details</a>
-            </div>
+
+    <div class="nav-container">
+        <nav>
+            <button class="tab-btn active" onclick="openTab(event, 'about')">About Me</button>
+            <button class="tab-btn" onclick="openTab(event, 'projects')">Projects</button>
+            <button class="tab-btn" onclick="openTab(event, 'contact')">Contact</button>
+        </nav>
+    </div>
+
+    <main>
+        <div id="about" class="tab-content active">
+            <section class="card">
+                <h2>About Me</h2>
+                <div class="about-list">
+                    <p>👋 <strong>I'm Jinshuo Li</strong>, currently an undergraduate student in the Shanghai Jiao Tong University (SJTU) IEEE Honor Class.</p>
+                    <p>🎓 I have a strong interest in <strong>Mathematics, Physics, and Biology</strong>.</p>
+                    <p>💻 Currently, I am diving deep into the world of <strong>Computer Science</strong>.</p>
+                </div>
+            </section>
         </div>
-    </section>
-    
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <p>If you have any questions or are seeking collaborations, please contact me via:</p>
-        <ul>
-            <li>Email: <a href="mailto:ljs_2025@sjtu.edu.cn" style="color: #007bff;">ljs_2025@sjtu.edu.cn</a></li>
-            <li>GitHub: <a href="https://github.com/JinShuo-Li" style="color: #007bff;">github.com/JinShuo-Li</a></li>
-        </ul>
-    </section>
-    
+
+        <div id="projects" class="tab-content">
+            <section>
+                <h2>My Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div>
+                            <h3>My Personal Website</h3>
+                            <p>A GitHub Pages site built with HTML, CSS, and JS to showcase my portfolio, projects, and ideas.</p>
+                        </div>
+                        <a href="https://github.com/JinShuo-Li/JinShuo-Li.github.io" class="btn-link" target="_blank">View on GitHub →</a>
+                    </div>
+
+                    <div class="project-card">
+                        <div>
+                            <h3>Beijing Subway Navigator</h3>
+                            <p>A terminal-based navigation system for the Beijing Subway, built from scratch using custom Matrix and Graph implementations.</p>
+                        </div>
+                        <a href="https://github.com/JinShuo-Li/Beijing-Subway-Navigator" class="btn-link" target="_blank">View on GitHub →</a>
+                    </div>
+
+                    <div class="project-card">
+                        <div>
+                            <h3>Mathematical Analysis Notes</h3>
+                            <p>Comprehensive notes for Mathematical Analysis course.</p>
+                        </div>
+                        <a href="https://github.com/JinShuo-Li/Mathematical-Analysis" class="btn-link" target="_blank">View Details →</a>
+                    </div>
+
+                    <div class="project-card">
+                        <div>
+                            <h3>Math Analysis (Chinese)</h3>
+                            <p>This is the notes of Mathematical Analysis written in Chinese.</p>
+                        </div>
+                        <a href="https://github.com/JinShuo-Li/Mathematical-Analysis-cn" class="btn-link" target="_blank">View Details →</a>
+                    </div>
+
+                    <div class="project-card">
+                        <div>
+                            <h3>Linear Algebra Notes</h3>
+                            <p>Notes for the Linear Algebra course's final exams. All content is in Chinese.</p>
+                        </div>
+                        <a href="https://github.com/JinShuo-Li/Linear-Algebra-cn" class="btn-link" target="_blank">View Details →</a>
+                    </div>
+
+                    <div class="project-card">
+                        <div>
+                            <h3>Intro to Computers & Programming</h3>
+                            <p>Notes for CS1602 specially designed for IEEE Honor Class (Chinese).</p>
+                        </div>
+                        <a href="https://github.com/JinShuo-Li/Intro-to-Computers-and-Programming-cn" class="btn-link" target="_blank">View Details →</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="contact" class="tab-content">
+            <section class="card">
+                <h2>Contact Me</h2>
+                <p style="margin-bottom: 20px;">If you have any questions or are seeking collaborations, please feel free to reach out.</p>
+                <ul class="contact-list">
+                    <li>
+                        <span class="contact-label">Email:</span>
+                        <a href="mailto:ljs_2025@sjtu.edu.cn" class="btn-link">ljs_2025@sjtu.edu.cn</a>
+                    </li>
+                    <li>
+                        <span class="contact-label">GitHub:</span>
+                        <a href="https://github.com/JinShuo-Li" class="btn-link" target="_blank">github.com/JinShuo-Li</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
     <footer>
         <p>&copy; 2026 Jinshuo Li. All rights reserved.</p>
     </footer>
+
+    <script>
+        function openTab(evt, tabName) {
+            // 1. 隐藏所有 tab-content
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active"); // 移除 active 类，隐藏内容
+            }
+
+            // 2. 移除所有 tab-btn 的 active 样式
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // 3. 显示当前选中的 tab-content 并添加按钮高亮
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 </body>
 </html>
