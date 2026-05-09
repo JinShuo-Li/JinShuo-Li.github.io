@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Li Jinshuo — Personal Homepage. Undergraduate at Shanghai Jiao Tong University, IEEE Honor Class." />
+  <meta name="theme-color" content="#f5f1e8" />
+  <title>Li Jinshuo | Personal Homepage</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #f5f1e8;
+      --paper: #fbf8f1;
+      --text: #171512;
+      --muted: #6f6a61;
+      --muted-2: #9a9286;
+      --line: rgba(23, 21, 18, 0.12);
+      --accent: #2f5f57;
+      --accent-dark: #244a44;
+      --accent-soft: rgba(47, 95, 87, 0.10);
+      --card: rgba(255, 255, 255, 0.62);
+      --shadow: 0 28px 80px rgba(39, 32, 24, 0.10);
+      --radius: 28px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(47, 95, 87, 0.12), transparent 30rem),
+        radial-gradient(circle at 92% 4%, rgba(168, 121, 75, 0.14), transparent 28rem),
+        linear-gradient(180deg, #f8f5ee 0%, var(--bg) 48%, #ebe3d5 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 18px;
+      z-index: 20;
+      padding-top: 18px;
+    }
+
+    .nav-inner {
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 16px 0 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(251, 248, 241, 0.82);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 16px 50px rgba(39, 32, 24, 0.08);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .nav-links a {
+      padding: 10px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 750;
+      transition: 180ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(23, 21, 18, 0.06);
+    }
+
+    .nav-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+      transition: 180ms ease;
+    }
+
+    .nav-action:hover {
+      transform: translateY(-1px);
+      background: var(--accent);
+    }
+
+    .hero {
+      padding: 112px 0 82px;
+    }
+
+    .hero-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 56px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.55;
+    }
+
+    h1, h2, h3, p {
+      margin: 0;
+    }
+
+    .hero-title {
+      font-family: Montserrat, Inter, system-ui, sans-serif;
+      font-size: clamp(58px, 8.6vw, 104px);
+      line-height: 1.08;
+      letter-spacing: 0.035em;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .homepage-label {
+      display: inline-flex;
+      margin-top: 24px;
+      padding: 12px 18px;
+      border: 1px solid rgba(47, 95, 87, 0.18);
+      border-radius: 999px;
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+      font-family: Montserrat, Inter, system-ui, sans-serif;
+      font-size: clamp(17px, 2vw, 24px);
+      font-weight: 600;
+      letter-spacing: 0.025em;
+    }
+
+    .hero-summary {
+      margin-top: 34px;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.78;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      padding: 0 20px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      font-size: 15px;
+      font-weight: 700;
+      transition: 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button.primary {
+      color: white;
+      background: var(--accent);
+      border-color: transparent;
+      box-shadow: 0 18px 44px rgba(47, 95, 87, 0.18);
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.55);
+    }
+
+    .button.secondary:hover {
+      background: rgba(255, 255, 255, 0.88);
+    }
+
+    .profile-card {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.62);
+      box-shadow: var(--shadow);
+    }
+
+    .profile-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .avatar {
+      width: 76px;
+      height: 76px;
+      flex: 0 0 auto;
+      object-fit: cover;
+      border-radius: 22px;
+      border: 1px solid rgba(23, 21, 18, 0.10);
+      box-shadow: 0 14px 32px rgba(39, 32, 24, 0.12);
+    }
+
+    .profile-name {
+      font-family: Montserrat, Inter, system-ui, sans-serif;
+      font-size: 23px;
+      font-weight: 700;
+      letter-spacing: 0.002em;
+      line-height: 1.16;
+    }
+
+    .profile-role {
+      margin-top: 7px;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .profile-list {
+      display: grid;
+      gap: 16px;
+      padding-top: 20px;
+    }
+
+    .profile-item span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .profile-item strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.45;
+      letter-spacing: -0.02em;
+    }
+
+    section {
+      padding: 76px 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 0.85fr 1fr;
+      gap: 56px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .section-kicker {
+      margin-bottom: 13px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-family: Montserrat, Inter, system-ui, sans-serif;
+      font-size: clamp(34px, 4.3vw, 56px);
+      line-height: 1.12;
+      letter-spacing: -0.012em;
+      font-weight: 700;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.75;
+      letter-spacing: -0.015em;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card, .timeline-item, .project, .skill-panel, .contact-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: 0 18px 60px rgba(39, 32, 24, 0.055);
+    }
+
+    .card {
+      min-height: 235px;
+      padding: 26px;
+      transition: 180ms ease;
+    }
+
+    .card:hover, .project:hover, .contact-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 24px 70px rgba(39, 32, 24, 0.08);
+    }
+
+    .card-number {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 26px;
+      border-radius: 50%;
+      color: var(--accent);
+      background: var(--accent-soft);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    h3 {
+      font-family: Montserrat, Inter, system-ui, sans-serif;
+      font-size: 22px;
+      line-height: 1.32;
+      letter-spacing: -0.006em;
+      font-weight: 650;
+    }
+
+    .card p, .timeline-item p, .project p {
+      margin-top: 12px;
+      color: var(--muted);
+      line-height: 1.72;
+      letter-spacing: -0.01em;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      padding: 28px;
+    }
+
+    .timeline-time {
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .project {
+      min-height: 230px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 26px;
+      transition: 180ms ease;
+    }
+
+    .project-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .repo-link {
+      flex: 0 0 auto;
+      padding: 8px 10px;
+      border-radius: 999px;
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .tags, .skill-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tags {
+      margin-top: 24px;
+    }
+
+    .tag, .skill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(23, 21, 18, 0.055);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .skill-panel {
+      padding: 28px;
+    }
+
+    .skill-cloud {
+      margin-top: 20px;
+    }
+
+    .skill {
+      min-height: 36px;
+      border-radius: 14px;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .statement {
+      padding: 44px;
+      border-radius: 36px;
+      color: #fff;
+      background: linear-gradient(135deg, #151412, var(--accent-dark));
+      box-shadow: 0 30px 90px rgba(47, 95, 87, 0.18);
+    }
+
+    .statement p {
+      max-width: 850px;
+      font-family: Montserrat, Inter, system-ui, sans-serif;
+      font-size: clamp(30px, 4.2vw, 52px);
+      line-height: 1.16;
+      letter-spacing: -0.008em;
+      font-weight: 700;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .contact-card {
+      padding: 24px;
+      transition: 180ms ease;
+    }
+
+    .contact-card span {
+      display: block;
+      margin-bottom: 11px;
+      color: var(--muted-2);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .contact-card strong {
+      display: block;
+      font-size: 17px;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    footer {
+      padding: 46px 0 38px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: 680ms ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-top,
+      .section-head,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-card {
+        max-width: 520px;
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        width: min(var(--max), calc(100% - 24px));
+      }
+
+      .hero {
+        padding: 72px 0 54px;
+      }
+
+      .hero-title {
+        white-space: normal;
+        font-size: clamp(52px, 17vw, 82px);
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .profile-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .statement {
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav container" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Li Jinshuo homepage">
+        <span class="brand-mark">LJ</span>
+        <span>Li Jinshuo</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="nav-action" href="https://github.com/JinShuo-Li" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </nav>
+
+  <main id="top" class="container">
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <div class="eyebrow">SJTU IEEE Honor Class</div>
+          <h1 class="hero-title">Li Jinshuo</h1>
+          <div class="homepage-label">Personal Homepage</div>
+          <p class="hero-summary">
+            Welcome. I am an undergraduate at Shanghai Jiao Tong University, interested in algorithms,
+            machine learning, computer vision, mathematics, and systems. I enjoy clear ideas,
+            careful implementation, and polished technical work.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#projects">View projects</a>
+            <a class="button secondary" href="mailto:ljs_2025@sjtu.edu.cn">Get in touch</a>
+          </div>
+        </div>
+
+        <aside class="profile-card" aria-label="Profile summary">
+          <div class="profile-head">
+            <img class="avatar" src="https://github.com/JinShuo-Li.png" alt="Li Jinshuo GitHub avatar" />
+            <div>
+              <div class="profile-name">Li Jinshuo</div>
+              <div class="profile-role">Undergraduate<br />Shanghai Jiao Tong University</div>
+            </div>
+          </div>
+          <div class="profile-list">
+            <div class="profile-item">
+              <span>Program</span>
+              <strong>IEEE Honor Class</strong>
+            </div>
+            <div class="profile-item">
+              <span>Focus</span>
+              <strong>Algorithms · Machine Learning · Computer Vision</strong>
+            </div>
+            <div class="profile-item">
+              <span>Tools</span>
+              <strong>Python · C++ · TeX · Verilog</strong>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="reveal">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">About</div>
+          <h2>A quiet focus on depth.</h2>
+        </div>
+        <p class="section-note">
+          My work is shaped by rigorous study and practical experimentation. I like projects that are conceptually clean,
+          technically precise, and useful enough to be revisited and improved over time.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <article class="card">
+          <div class="card-number">01</div>
+          <h3>Algorithms and computation</h3>
+          <p>I value clarity, efficiency, and robust abstractions when studying and implementing computational ideas.</p>
+        </article>
+        <article class="card">
+          <div class="card-number">02</div>
+          <h3>Learning systems</h3>
+          <p>I am exploring machine learning and computer vision through both theory and hands-on implementation.</p>
+        </article>
+        <article class="card">
+          <div class="card-number">03</div>
+          <h3>Mathematical foundation</h3>
+          <p>Mathematical analysis, linear algebra, abstract algebra, and discrete mathematics guide the way I reason.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="education" class="reveal">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Education</div>
+          <h2>Academic path.</h2>
+        </div>
+        <p class="section-note">A concise record of my education, from high school foundations to current undergraduate study.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-time">2025 — Present</div>
+          <div>
+            <h3>Shanghai Jiao Tong University</h3>
+            <p>Undergraduate student in IEEE Honor Class, focusing on computer science, mathematics, physics, and engineering fundamentals.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-time">2021 — 2024</div>
+          <div>
+            <h3>Beijing No.4 High School</h3>
+            <p>Built a strong academic foundation and developed an early interest in rigorous problem-solving and technology.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="reveal">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Selected Work</div>
+          <h2>Projects and notes.</h2>
+        </div>
+        <p class="section-note">A small selection of repositories that reflect my current interests in mathematics, tools, systems, and knowledge sharing.</p>
+      </div>
+
+      <div class="project-grid">
+        <article class="project">
+          <div>
+            <div class="project-top">
+              <h3>Matrix Library</h3>
+              <a class="repo-link" href="https://github.com/JinShuo-Li/Matrix-Library" target="_blank" rel="noopener">Repo ↗</a>
+            </div>
+            <p>A compact linear algebra toolkit in pure Python, organized around a unified Matrix class.</p>
+          </div>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Linear Algebra</span><span class="tag">Toolkit</span></div>
+        </article>
+
+        <article class="project">
+          <div>
+            <div class="project-top">
+              <h3>Mathematical Note</h3>
+              <a class="repo-link" href="https://github.com/JinShuo-Li/Mathematical-Note" target="_blank" rel="noopener">Repo ↗</a>
+            </div>
+            <p>A structured mathematical note covering analysis, linear algebra, abstract algebra, and related topics.</p>
+          </div>
+          <div class="tags"><span class="tag">TeX</span><span class="tag">Analysis</span><span class="tag">Algebra</span></div>
+        </article>
+
+        <article class="project">
+          <div>
+            <div class="project-top">
+              <h3>Super Calculator</h3>
+              <a class="repo-link" href="https://github.com/JinShuo-Li/Super-Calculator" target="_blank" rel="noopener">Repo ↗</a>
+            </div>
+            <p>A modern Python application for advanced mathematics, built with PyQt6 and NumPy.</p>
+          </div>
+          <div class="tags"><span class="tag">Python</span><span class="tag">PyQt6</span><span class="tag">NumPy</span></div>
+        </article>
+
+        <article class="project">
+          <div>
+            <div class="project-top">
+              <h3>FACC</h3>
+              <a class="repo-link" href="https://github.com/JinShuo-Li/FACC" target="_blank" rel="noopener">Repo ↗</a>
+            </div>
+            <p>FPGA Based Assembly Computer: a custom computer with its own assembly language and toolchain.</p>
+          </div>
+          <div class="tags"><span class="tag">Verilog</span><span class="tag">FPGA</span><span class="tag">Architecture</span></div>
+        </article>
+
+        <article class="project">
+          <div>
+            <div class="project-top">
+              <h3>SJTU IEEE Freshman Notes</h3>
+              <a class="repo-link" href="https://github.com/JinShuo-Li/SJTU-IEEE-First-Semester-Freshman-Course-Notes-and-Materials" target="_blank" rel="noopener">Repo ↗</a>
+            </div>
+            <p>Course notes and materials for mathematical analysis, linear algebra, discrete mathematics, and programming.</p>
+          </div>
+          <div class="tags"><span class="tag">SJTU</span><span class="tag">Course Notes</span><span class="tag">Python</span></div>
+        </article>
+
+        <article class="project">
+          <div>
+            <div class="project-top">
+              <h3>Learning Raspberry Pi</h3>
+              <a class="repo-link" href="https://github.com/JinShuo-Li/Learning-Raspberry-Pi" target="_blank" rel="noopener">Repo ↗</a>
+            </div>
+            <p>Source code and notes from learning Raspberry Pi 5, embedded programming, and practical computing.</p>
+          </div>
+          <div class="tags"><span class="tag">Raspberry Pi</span><span class="tag">Python</span><span class="tag">Embedded</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="reveal">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Skills</div>
+          <h2>Tools for thinking and building.</h2>
+        </div>
+        <p class="section-note">A compact overview of the technical tools and academic areas reflected in my work.</p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-panel">
+          <h3>Technical stack</h3>
+          <div class="skill-cloud">
+            <span class="skill">Python</span>
+            <span class="skill">C++</span>
+            <span class="skill">TeX</span>
+            <span class="skill">Verilog</span>
+            <span class="skill">PyQt6</span>
+            <span class="skill">NumPy</span>
+            <span class="skill">Git</span>
+            <span class="skill">Raspberry Pi</span>
+          </div>
+        </div>
+        <div class="skill-panel">
+          <h3>Academic interests</h3>
+          <div class="skill-cloud">
+            <span class="skill">Algorithms</span>
+            <span class="skill">Machine Learning</span>
+            <span class="skill">Computer Vision</span>
+            <span class="skill">Linear Algebra</span>
+            <span class="skill">Mathematical Analysis</span>
+            <span class="skill">Abstract Algebra</span>
+            <span class="skill">Discrete Mathematics</span>
+            <span class="skill">Analytical Mechanics</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="statement">
+        <p>Study deeply, build carefully, and keep theory close to implementation.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Contact</div>
+          <h2>Let’s connect.</h2>
+        </div>
+        <p class="section-note">I am open to discussing technology, research ideas, projects, and potential collaborations.</p>
+      </div>
+
+      <div class="contact-grid">
+        <a class="contact-card" href="mailto:ljs_2025@sjtu.edu.cn">
+          <span>School Email</span>
+          <strong>ljs_2025@sjtu.edu.cn</strong>
+        </a>
+        <a class="contact-card" href="mailto:Jinshuo_Li@hotmail.com">
+          <span>Personal Email</span>
+          <strong>Jinshuo_Li@hotmail.com</strong>
+        </a>
+        <a class="contact-card" href="https://github.com/JinShuo-Li" target="_blank" rel="noopener">
+          <span>GitHub</span>
+          <strong>@JinShuo-Li</strong>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Li Jinshuo. Personal Homepage.</div>
+      <div>Shanghai Jiao Tong University · IEEE Honor Class</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((item) => observer.observe(item));
+  </script>
+</body>
+</html>
