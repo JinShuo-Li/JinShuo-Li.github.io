@@ -1,0 +1,144 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site, education, interests, skills } from "../lib/site";
+---
+
+<BaseLayout
+  title="About"
+  description="About Li Jinshuo: undergraduate in the IEEE Honor Class at Shanghai Jiao Tong University, interested in mathematics, machine learning, computer vision, and systems."
+>
+  <div class="page-head">
+    <div class="container">
+      <div class="kicker">About</div>
+      <h1 class="page-head__title">Li Jinshuo</h1>
+      <p class="page-head__lead">
+        Undergraduate in the {site.program} at {site.affiliation}. I study mathematics and computer
+        science, and I build systems and tools to understand ideas from the inside.
+      </p>
+    </div>
+  </div>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="prose">
+        <p>
+          My work sits between theory and implementation. On the theoretical side, I keep structured
+          notes on analysis, algebra, and topology, because the value of a mathematical idea often
+          lies in how it is organized rather than in a single result. On the practical side, I build
+          learning systems and execution tooling: agent simulations, neural search engines, and
+          runtimes that target different hardware backends.
+        </p>
+        <p>
+          I care about clear explanations and honest reporting. Most of what I publish is a record
+          of something I am actively studying or building, and I try to describe it as it actually
+          is, including what remains unfinished.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="education-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Education</div>
+          <h2 class="section-title" id="education-title">Academic path</h2>
+        </div>
+        <p class="section-note">A concise record of my formal education.</p>
+      </div>
+
+      <div class="post-list">
+        {
+          education.map((item) => (
+            <article class="card">
+              <div class="card__period">{item.period}</div>
+              <h3 class="card__title card__title--spaced">{item.school}</h3>
+              <p class="card__text">{item.detail}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="interests-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Interests</div>
+          <h2 class="section-title" id="interests-title">Areas of work</h2>
+        </div>
+        <p class="section-note">
+          The themes that recur across my projects and notes.
+        </p>
+      </div>
+
+      <div class="grid grid--2">
+        {
+          interests.map((item) => (
+            <article class="card">
+              <h3 class="card__title">{item.title}</h3>
+              <p class="card__text">{item.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="skills-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Skills</div>
+          <h2 class="section-title" id="skills-title">Tools and subjects</h2>
+        </div>
+        <p class="section-note">
+          A compact overview of the languages, libraries, and academic subjects reflected in my
+          work.
+        </p>
+      </div>
+
+      <div class="grid grid--2">
+        <article class="card">
+          <h3 class="card__title">Technical</h3>
+          <div class="tags tags--plain">
+            {skills.technical.map((skill) => <span class="tag">{skill}</span>)}
+          </div>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Academic</h3>
+          <div class="tags tags--plain">
+            {skills.academic.map((skill) => <span class="tag">{skill}</span>)}
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="about-contact-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Contact</div>
+          <h2 class="section-title" id="about-contact-title">Where to find me</h2>
+        </div>
+      </div>
+
+      <div class="contact-grid">
+        <a class="contact-card" href={`mailto:${site.emailSchool}`}>
+          <span>School email</span>
+          <strong>{site.emailSchool}</strong>
+        </a>
+        <a class="contact-card" href={`mailto:${site.emailPersonal}`}>
+          <span>Personal email</span>
+          <strong>{site.emailPersonal}</strong>
+        </a>
+        <a class="contact-card" href={site.github} target="_blank" rel="noopener">
+          <span>GitHub</span>
+          <strong>@JinShuo-Li</strong>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
