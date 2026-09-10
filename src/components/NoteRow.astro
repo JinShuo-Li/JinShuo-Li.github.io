@@ -1,0 +1,15 @@
+---
+import { articlePath, titleOf, type BlogEntry } from "../lib/blog";
+
+interface Props {
+  entry: BlogEntry;
+  index: number;
+}
+
+const { entry, index } = Astro.props;
+---
+
+<a class="note-row" href={articlePath(entry)}>
+  <span class="note-row__index">{String(index).padStart(2, "0")}</span>
+  <span class="note-row__title">{titleOf(entry)}</span>
+</a>

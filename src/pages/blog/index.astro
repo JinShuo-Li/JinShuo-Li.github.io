@@ -1,47 +1,74 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import EssayRow from "../../components/EssayRow.astro";
+import CourseRow from "../../components/CourseRow.astro";
 import { getTree, sectionPath } from "../../lib/blog";
 
 const tree = await getTree();
-const sections = tree.children;
+const essays = tree.children.find((section) => section.slug === "essays");
+const courses = tree.children.find((section) => section.slug === "courses");
+const otherSections = tree.children.filter(
+  (section) => section.slug !== "essays" && section.slug !== "courses",
+);
+const recentEssays = (essays?.articles ?? []).slice(0, 8);
 ---
 
 <BaseLayout
-  title="Blog"
-  description="Notes on mathematics, machine learning, computer vision, and systems by Li Jinshuo."
+  title="Writing"
+  description="Essays, course notes, and technical writing by Li Jinshuo."
 >
   <div class="page-head">
     <div class="container">
-      <div class="kicker">Blog</div>
-      <h1 class="page-head__title">Notes and writing</h1>
+      <h1 class="page-head__title">Writing</h1>
+      <p class="page-head__lead">Essays, course notes, and technical writing.</p>
     </div>
   </div>
 
-  <section class="section" aria-labelledby="categories-title">
+  <section class="section section--tight">
     <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="kicker">Categories</div>
-          <h2 class="section-title" id="categories-title">Browse by category</h2>
-        </div>
-      </div>
+      {
+        essays && (
+          <div class="index-block">
+            <div class="index-label">{essays.name}</div>
+            <div class="essay-list">
+              {recentEssays.map((entry) => (
+                <EssayRow entry={entry} />
+              ))}
+            </div>
+            <a class="index-more" href={sectionPath(essays.slug)}>
+              View all essays →
+            </a>
+          </div>
+        )
+      }
 
       {
-        sections.length > 0 ? (
-          <div class="grid grid--3">
-            {sections.map((section) => (
-              <a class="category-card reveal" href={sectionPath(section.slug)}>
-                <h3 class="category-card__name">{section.name}</h3>
-                <div class="category-card__count">
-                  {section.totalArticles} {section.totalArticles === 1 ? "article" : "articles"}
-                </div>
-                <div class="category-card__more">Open →</div>
-              </a>
-            ))}
+        courses && (
+          <div class="index-block">
+            <div class="index-label">{courses.name}</div>
+            <div class="course-list">
+              {courses.children.map((child) => (
+                <CourseRow node={child} />
+              ))}
+            </div>
+            <a class="index-more" href={sectionPath(courses.slug)}>
+              View all courses →
+            </a>
           </div>
-        ) : (
-          <p class="empty-state">No categories yet.</p>
         )
+      }
+
+      {
+        otherSections.map((section) => (
+          <div class="index-block">
+            <div class="index-label">{section.name}</div>
+            <div class="essay-list">
+              {section.articles.map((entry) => (
+                <EssayRow entry={entry} />
+              ))}
+            </div>
+          </div>
+        ))
       }
     </div>
   </section>

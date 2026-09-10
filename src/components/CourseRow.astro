@@ -1,0 +1,25 @@
+---
+import { sectionPath, splitSectionName, type BlogNode } from "../lib/blog";
+
+interface Props {
+  node: BlogNode;
+  description?: boolean;
+}
+
+const { node, description = false } = Astro.props;
+const { code, title } = splitSectionName(node.name);
+---
+
+<a class="course-row" href={sectionPath(node.slug)}>
+  <div class="course-row__body">
+    <div class="course-row__code">{code}</div>
+    {title && <div class="course-row__title">{title}</div>}
+    {description && node.description && <p class="course-row__desc">{node.description}</p>}
+  </div>
+  <div class="course-row__meta">
+    <span class="course-row__count">
+      {node.totalArticles} {node.totalArticles === 1 ? "note" : "notes"}
+    </span>
+    <span class="course-row__arrow" aria-hidden="true">→</span>
+  </div>
+</a>

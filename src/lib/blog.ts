@@ -266,3 +266,21 @@ export function formatDate(date: Date | null): string {
     timeZone: "UTC",
   });
 }
+
+export function formatMonthYear(date: Date | null): string {
+  if (!date) return "";
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    timeZone: "UTC",
+  });
+}
+
+/** Split a section name like "CS1602 — Introduction to Computing" into its code and title. */
+export function splitSectionName(name: string): { code: string; title: string } {
+  const separator = name.indexOf(" — ");
+  if (separator > 0) {
+    return { code: name.slice(0, separator).trim(), title: name.slice(separator + 3).trim() };
+  }
+  return { code: name.trim(), title: "" };
+}

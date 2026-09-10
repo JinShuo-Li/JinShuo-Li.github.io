@@ -8,6 +8,7 @@ import {
   readingTimeOf,
   articlePath,
   sectionPath,
+  splitSectionName,
   type BlogEntry,
   type BlogNode,
 } from "../lib/blog";
@@ -40,7 +41,7 @@ const next = index >= 0 && index < node.articles.length - 1 ? node.articles[inde
             crumbs.map((crumb) => (
               <>
                 <span aria-hidden="true"> / </span>
-                <a href={sectionPath(crumb.slug)}>{crumb.name}</a>
+                <a href={sectionPath(crumb.slug)}>{splitSectionName(crumb.name).code}</a>
               </>
             ))
           }
