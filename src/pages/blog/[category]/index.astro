@@ -14,8 +14,7 @@ export async function getStaticPaths() {
 
 const { category } = Astro.props;
 const Intro = category.readme ? (await render(category.readme)).Content : null;
-const description =
-  category.description || `Notes and articles in the ${category.name} category.`;
+const description = category.description || `${category.name} — articles and notes.`;
 ---
 
 <BaseLayout title={category.name} description={description}>
@@ -47,9 +46,6 @@ const description =
             {category.articles.length === 1 ? " article" : " articles"}
           </h2>
         </div>
-        <p class="section-note">
-          All articles discovered automatically from this category folder.
-        </p>
       </div>
 
       {

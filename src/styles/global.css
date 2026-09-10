@@ -132,15 +132,17 @@ main {
 }
 
 .section-head {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 24px 56px;
-  align-items: end;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 32px;
   margin-bottom: 32px;
 }
 
-.section-head__title {
-  max-width: 18ch;
+.section-head .link-more {
+  margin-top: 0;
+  padding-bottom: 6px;
 }
 
 .kicker {
@@ -168,14 +170,6 @@ main {
   font-size: clamp(28px, 3.6vw, 42px);
 }
 
-.section-note {
-  max-width: 52ch;
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 1.75;
-}
-
-.section-note code,
 .page-head__lead code {
   padding: 0.12em 0.4em;
   border: 1px solid var(--line);
@@ -933,6 +927,14 @@ main {
 
 .prose p {
   margin: 0;
+  text-indent: 2em;
+}
+
+.prose blockquote p,
+.prose li p,
+.prose > .katex-display,
+.prose figure p {
+  text-indent: 0;
 }
 
 .prose a {

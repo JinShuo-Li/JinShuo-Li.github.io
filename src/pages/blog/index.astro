@@ -17,23 +17,19 @@ const recent = articles.slice(0, 8);
       <div class="kicker">Blog</div>
       <h1 class="page-head__title">Notes and writing</h1>
       <p class="page-head__lead">
-        Working notes on mathematics, learning systems, and computing. Entries are grouped by
-        category and added directly from Markdown files in the repository.
+        Notes and essays on mathematics, machine learning, computer vision, and systems.
       </p>
     </div>
   </div>
 
   <section class="section" aria-labelledby="categories-title">
     <div class="container">
+      {/* Each category is a folder under blog/, with a README.md that introduces the topic. */}
       <div class="section-head">
         <div>
           <div class="kicker">Categories</div>
           <h2 class="section-title" id="categories-title">Browse by category</h2>
         </div>
-        <p class="section-note">
-          Each category is a folder under <code>blog/</code>, with a <code>README.md</code> that
-          introduces the topic.
-        </p>
       </div>
 
       {
@@ -51,9 +47,7 @@ const recent = articles.slice(0, 8);
             ))}
           </div>
         ) : (
-          <p class="empty-state">
-            No categories yet. Add a folder under <code>blog/</code> to get started.
-          </p>
+          <p class="empty-state">No categories yet.</p>
         )
       }
     </div>
@@ -61,12 +55,12 @@ const recent = articles.slice(0, 8);
 
   <section class="section section--tight" aria-labelledby="recent-title">
     <div class="container">
+      {/* The most recent entries across all categories. */}
       <div class="section-head">
         <div>
           <div class="kicker">Recent</div>
           <h2 class="section-title" id="recent-title">Recent articles</h2>
         </div>
-        <p class="section-note">The most recent entries across all categories.</p>
       </div>
 
       {
