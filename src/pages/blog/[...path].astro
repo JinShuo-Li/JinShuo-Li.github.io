@@ -1,0 +1,44 @@
+---
+import { render } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import SectionLayout from "../../layouts/SectionLayout.astro";
+import { getTree, type BlogEntry, type BlogNode } from "../../lib/blog";
+
+type SectionPath = { params: { path: string }; props: { kind: "section"; node: BlogNode } };
+type ArticlePath = {
+  params: { path: string };
+  props: { kind: "article"; entry: BlogEntry; node: BlogNode };
+};
+
+export async function getStaticPaths() {
+  const tree = await getTree();
+  const paths: (SectionPath | ArticlePath)[] = [];
+
+  const walk = (node: BlogNode) => {
+    if (node.slug) {
+      paths.push({ params: { path: node.slug }, props: { kind: "section", node } });
+    }
+    for (const entry of node.articles) {
+      paths.push({ params: { path: entry.id }, props: { kind: "article", entry, node } });
+    }
+    node.children.forEach(walk);
+  };
+
+  walk(tree);
+  return paths;
+}
+
+const node = Astro.props.node;
+const article = Astro.props.kind === "article" ? Astro.props.entry : null;
+const Content = article ? (await render(article)).Content : null;
+---
+
+{
+  article && Content ? (
+    <ArticleLayout entry={article} node={node}>
+      <Content />
+    </ArticleLayout>
+  ) : (
+    <SectionLayout node={node} />
+  )
+}

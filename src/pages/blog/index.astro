@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getCategories, categoryPath } from "../../lib/blog";
+import { getTree, sectionPath } from "../../lib/blog";
 
-const categories = await getCategories();
+const tree = await getTree();
+const sections = tree.children;
 ---
 
 <BaseLayout
@@ -26,15 +27,15 @@ const categories = await getCategories();
       </div>
 
       {
-        categories.length > 0 ? (
+        sections.length > 0 ? (
           <div class="grid grid--3">
-            {categories.map((category) => (
-              <a class="category-card reveal" href={categoryPath(category.slug)}>
-                <h3 class="category-card__name">{category.name}</h3>
+            {sections.map((section) => (
+              <a class="category-card reveal" href={sectionPath(section.slug)}>
+                <h3 class="category-card__name">{section.name}</h3>
                 <div class="category-card__count">
-                  {category.articles.length} {category.articles.length === 1 ? "article" : "articles"}
+                  {section.totalArticles} {section.totalArticles === 1 ? "article" : "articles"}
                 </div>
-                <div class="category-card__more">Read category →</div>
+                <div class="category-card__more">Open →</div>
               </a>
             ))}
           </div>

@@ -6,24 +6,28 @@ import {
   dateOf,
   formatDate,
   readingTimeOf,
-  categoryOf,
-  displayName,
-  categoryPath,
+  articlePath,
+  sectionPath,
   type BlogEntry,
+  type BlogNode,
 } from "../lib/blog";
 
 interface Props {
   entry: BlogEntry;
+  node: BlogNode;
 }
 
-const { entry } = Astro.props;
+const { entry, node } = Astro.props;
 const title = titleOf(entry);
 const description = descriptionOf(entry) || undefined;
 const date = formatDate(dateOf(entry));
-const category = categoryOf(entry);
-const categoryName = displayName(category);
 const readTime = readingTimeOf(entry);
 const tags = entry.data.tags ?? [];
+const crumbs = [...node.ancestors, ...(node.slug ? [{ name: node.name, slug: node.slug }] : [])];
+
+const index = node.articles.findIndex((item) => item.id === entry.id);
+const prev = index > 0 ? node.articles[index - 1] : undefined;
+const next = index >= 0 && index < node.articles.length - 1 ? node.articles[index + 1] : undefined;
 ---
 
 <BaseLayout title={title} description={description} type="article">
@@ -32,13 +36,19 @@ const tags = entry.data.tags ?? [];
       <header class="article__header">
         <nav class="article__breadcrumb" aria-label="Breadcrumb">
           <a href="/blog/">Blog</a>
-          <span aria-hidden="true"> / </span>
-          <a href={categoryPath(category)}>{categoryName}</a>
+          {
+            crumbs.map((crumb) => (
+              <>
+                <span aria-hidden="true"> / </span>
+                <a href={sectionPath(crumb.slug)}>{crumb.name}</a>
+              </>
+            ))
+          }
         </nav>
         <h1 class="article__title">{title}</h1>
         <div class="article__meta">
           {date && <span>{date}</span>}
-          <span class="dot">{categoryName}</span>
+          {node.name && <span class="dot">{node.name}</span>}
           <span class="dot">{readTime} min read</span>
         </div>
       </header>
@@ -47,8 +57,31 @@ const tags = entry.data.tags ?? [];
         <slot />
       </div>
 
+      {
+        (prev || next) && (
+          <nav class="article__nav" aria-label="Section navigation">
+            {prev ? (
+              <a class="article__nav-link" href={articlePath(prev)}>
+                <span>Previous</span>
+                <strong>{titleOf(prev)}</strong>
+              </a>
+            ) : (
+              <span />
+            )}
+            {next ? (
+              <a class="article__nav-link article__nav-link--next" href={articlePath(next)}>
+                <span>Next</span>
+                <strong>{titleOf(next)}</strong>
+              </a>
+            ) : (
+              <span />
+            )}
+          </nav>
+        )
+      }
+
       <footer class="article__footer">
-        <a class="btn btn--link" href={categoryPath(category)}>← Back to {categoryName}</a>
+        <a class="btn btn--link" href={sectionPath(node.slug)}>← Back to {node.name}</a>
         {
           tags.length > 0 && (
             <div class="article__tags">

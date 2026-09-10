@@ -1,0 +1,104 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import PostCard from "../components/PostCard.astro";
+import { sectionPath, type BlogNode } from "../lib/blog";
+
+interface Props {
+  node: BlogNode;
+}
+
+const { node } = Astro.props;
+const Intro = node.readme ? (await render(node.readme)).Content : null;
+const description = node.description || `${node.name} — notes and articles.`;
+const hasChildren = node.children.length > 0;
+const hasArticles = node.articles.length > 0;
+const childNoun = node.slug === "courses" ? "course" : "section";
+const crumbs = [...node.ancestors, ...(node.slug ? [{ name: node.name, slug: node.slug }] : [])];
+---
+
+<BaseLayout title={node.name} description={description}>
+  <div class="page-head">
+    <div class="container">
+      <nav class="article__breadcrumb" aria-label="Breadcrumb">
+        <a href="/blog/">Blog</a>
+        {
+          crumbs.map((crumb) => (
+            <>
+              <span aria-hidden="true"> / </span>
+              <a href={sectionPath(crumb.slug)}>{crumb.name}</a>
+            </>
+          ))
+        }
+      </nav>
+      <h1 class="page-head__title">{node.name}</h1>
+    </div>
+  </div>
+
+  <section class="section section--tight">
+    <div class="container">
+      {
+        Intro && (
+          <div class="category-intro prose">
+            <Intro />
+          </div>
+        )
+      }
+
+      {
+        hasChildren && (
+          <>
+            <div class="section-head">
+              <div>
+                <div class="kicker">Contents</div>
+                <h2 class="section-title">
+                  {node.children.length}
+                  {node.children.length === 1 ? ` ${childNoun}` : ` ${childNoun}s`}
+                </h2>
+              </div>
+            </div>
+            <div class="grid grid--3">
+              {node.children.map((child) => (
+                <a class="category-card reveal" href={sectionPath(child.slug)}>
+                  <h3 class="category-card__name">{child.name}</h3>
+                  <div class="category-card__count">
+                    {child.totalArticles}
+                    {child.totalArticles === 1 ? " article" : " articles"}
+                  </div>
+                  <div class="category-card__more">Open →</div>
+                </a>
+              ))}
+            </div>
+          </>
+        )
+      }
+
+      {
+        hasArticles && (
+          <>
+            <div class="section-head">
+              <div>
+                <div class="kicker">Articles</div>
+                <h2 class="section-title">
+                  {node.articles.length}
+                  {node.articles.length === 1 ? " article" : " articles"}
+                </h2>
+              </div>
+            </div>
+            <div class="post-list">
+              {node.articles.map((entry) => (
+                <PostCard entry={entry} />
+              ))}
+            </div>
+          </>
+        )
+      }
+
+      {
+        !hasChildren && !hasArticles && (
+          <p class="empty-state">Nothing here yet.</p>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

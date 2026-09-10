@@ -2,36 +2,54 @@ import { getCollection, type CollectionEntry } from "astro:content";
 
 export type BlogEntry = CollectionEntry<"blog">;
 
-export type Category = {
+export type Breadcrumb = { name: string; slug: string };
+
+export type BlogNode = {
+  /** Folder path, e.g. ["courses", "cs1602"]. Empty for the root. */
+  path: string[];
+  /** Slash-joined folder path, e.g. "courses/cs1602". Empty for the root. */
   slug: string;
   name: string;
   description: string;
+  /** Sort weight from README frontmatter; Infinity when unset. */
+  order: number;
   readme?: BlogEntry;
   articles: BlogEntry[];
+  children: BlogNode[];
+  /** Ancestor sections, excluding the root and the node itself. */
+  ancestors: Breadcrumb[];
+  /** Article count in this node and all descendants. */
+  totalArticles: number;
 };
+
+/* ------------------------------------------------------------------ */
+/* Entry helpers                                                       */
+/* ------------------------------------------------------------------ */
 
 function idSegments(entry: BlogEntry): string[] {
   return entry.id.replace(/\\/g, "/").split("/").filter(Boolean);
 }
 
-export function isCategoryReadme(entry: BlogEntry): boolean {
+function baseName(entry: BlogEntry): string {
   const segments = idSegments(entry);
-  const last = (segments[segments.length - 1] ?? "")
-    .replace(/\.(md|mdx)$/i, "")
-    .toLowerCase();
-  return last === "readme";
+  return (segments[segments.length - 1] ?? entry.id).replace(/\.(md|mdx)$/i, "");
+}
+
+export function isCategoryReadme(entry: BlogEntry): boolean {
+  return baseName(entry).toLowerCase() === "readme";
+}
+
+function folderOf(entry: BlogEntry): string[] {
+  return idSegments(entry).slice(0, -1);
 }
 
 export function categoryOf(entry: BlogEntry): string {
   const segments = idSegments(entry);
-  const folder = segments.length > 1 ? segments[0] : "misc";
-  return folder.toLowerCase();
+  return (segments.length > 1 ? segments[0] : "misc").toLowerCase();
 }
 
 export function slugOf(entry: BlogEntry): string {
-  const segments = idSegments(entry);
-  const last = segments[segments.length - 1] ?? entry.id;
-  return last.replace(/\.(md|mdx)$/i, "").toLowerCase();
+  return baseName(entry).toLowerCase();
 }
 
 function stripFrontmatter(body: string): string {
@@ -87,6 +105,11 @@ export function dateOf(entry: BlogEntry): Date | null {
   return entry.data.date ?? null;
 }
 
+function orderOf(entry: BlogEntry): number {
+  const value = entry.data.order;
+  return typeof value === "number" ? value : Number.POSITIVE_INFINITY;
+}
+
 export function readingTimeOf(entry: BlogEntry): number {
   const body = stripFrontmatter(entry.body ?? "");
   const text = body.replace(/```[\s\S]*?```/g, " ").replace(/<[^>]+>/g, " ");
@@ -101,11 +124,20 @@ export function readingTimeOf(entry: BlogEntry): number {
   return Math.max(1, Math.round(minutes));
 }
 
+/* ------------------------------------------------------------------ */
+/* Sorting                                                             */
+/* ------------------------------------------------------------------ */
+
 export function sortArticles(entries: BlogEntry[]): BlogEntry[] {
   return [...entries].sort((a, b) => {
+    const aOrder = orderOf(a);
+    const bOrder = orderOf(b);
+    if (aOrder !== bOrder) return aOrder < bOrder ? -1 : 1;
+
     const aTime = dateOf(a)?.getTime() ?? 0;
     const bTime = dateOf(b)?.getTime() ?? 0;
     if (bTime !== aTime) return bTime - aTime;
+
     return titleOf(a).localeCompare(titleOf(b));
   });
 }
@@ -120,48 +152,101 @@ export async function getRecentArticles(limit = 4): Promise<BlogEntry[]> {
   return articles.slice(0, limit);
 }
 
-export async function getCategories(): Promise<Category[]> {
-  const entries = await getCollection("blog", ({ data }) => data.draft !== true);
-  const readmes = entries.filter((entry) => isCategoryReadme(entry));
-  const articles = entries.filter((entry) => !isCategoryReadme(entry));
+/* ------------------------------------------------------------------ */
+/* Section tree                                                        */
+/* ------------------------------------------------------------------ */
 
-  const readmeByCategory = new Map<string, BlogEntry>();
-  for (const readme of readmes) {
-    readmeByCategory.set(categoryOf(readme), readme);
-  }
-
-  const articlesByCategory = new Map<string, BlogEntry[]>();
-  for (const article of articles) {
-    const category = categoryOf(article);
-    if (!articlesByCategory.has(category)) articlesByCategory.set(category, []);
-    articlesByCategory.get(category)!.push(article);
-  }
-
-  for (const readme of readmes) {
-    const category = categoryOf(readme);
-    if (!articlesByCategory.has(category)) articlesByCategory.set(category, []);
-  }
-
-  return [...articlesByCategory.entries()]
-    .map(([slug, categoryArticles]) => {
-      const readme = readmeByCategory.get(slug);
-      return {
-        slug,
-        name: readme?.data.title?.trim() || displayName(slug),
-        description: readme ? descriptionOf(readme) : "",
-        readme,
-        articles: sortArticles(categoryArticles),
-      };
-    })
-    .sort((a, b) => a.name.localeCompare(b.name));
+function emptyNode(path: string[]): BlogNode {
+  return {
+    path,
+    slug: path.join("/"),
+    name: displayName(path[path.length - 1] ?? "Blog"),
+    description: "",
+    order: Number.POSITIVE_INFINITY,
+    articles: [],
+    children: [],
+    ancestors: [],
+    totalArticles: 0,
+  };
 }
 
+function buildTree(entries: BlogEntry[]): BlogNode {
+  const root = emptyNode([]);
+  root.name = "Blog";
+
+  const nodes = new Map<string, BlogNode>([["", root]]);
+  const ensure = (path: string[]): BlogNode => {
+    const key = path.join("/");
+    const existing = nodes.get(key);
+    if (existing) return existing;
+    const parent = ensure(path.slice(0, -1));
+    const node = emptyNode(path);
+    parent.children.push(node);
+    nodes.set(key, node);
+    return node;
+  };
+
+  for (const entry of entries) {
+    const node = ensure(folderOf(entry));
+    if (isCategoryReadme(entry)) {
+      node.readme = entry;
+      node.name = entry.data.title?.trim() || displayName(node.path[node.path.length - 1] ?? "Blog");
+      node.description = descriptionOf(entry);
+      node.order = orderOf(entry);
+    } else {
+      node.articles.push(entry);
+    }
+  }
+
+  const finalize = (node: BlogNode, ancestors: Breadcrumb[]) => {
+    node.articles = sortArticles(node.articles);
+    node.children.sort((a, b) => {
+      if (a.order !== b.order) return a.order < b.order ? -1 : 1;
+      return a.name.localeCompare(b.name);
+    });
+    node.ancestors = ancestors;
+    node.totalArticles =
+      node.articles.length + node.children.reduce((sum, child) => sum + child.totalArticles, 0);
+    node.children.forEach((child) =>
+      finalize(child, [
+        ...ancestors,
+        ...(node.slug ? [{ name: node.name, slug: node.slug }] : []),
+      ]),
+    );
+  };
+
+  finalize(root, []);
+  return root;
+}
+
+export async function getTree(): Promise<BlogNode> {
+  const entries = await getCollection("blog", ({ data }) => data.draft !== true);
+  return buildTree(entries);
+}
+
+export function findSection(tree: BlogNode, slug: string): BlogNode | undefined {
+  if (tree.slug === slug) return tree;
+  for (const child of tree.children) {
+    const found = findSection(child, slug);
+    if (found) return found;
+  }
+  return undefined;
+}
+
+/* ------------------------------------------------------------------ */
+/* URLs                                                                */
+/* ------------------------------------------------------------------ */
+
 export function articlePath(entry: BlogEntry): string {
-  return `/blog/${categoryOf(entry)}/${slugOf(entry)}/`;
+  return `/blog/${entry.id}/`;
+}
+
+export function sectionPath(slug: string): string {
+  return `/blog/${slug}/`;
 }
 
 export function categoryPath(slug: string): string {
-  return `/blog/${slug}/`;
+  return sectionPath(slug);
 }
 
 export function formatDate(date: Date | null): string {
