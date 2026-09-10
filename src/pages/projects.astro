@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { featuredProjects, moreProjects } from "../lib/site";
+---
+
+<BaseLayout
+  title="Projects"
+  description="Selected and additional software projects by Li Jinshuo, spanning mathematics, machine learning, systems, and tooling."
+>
+  <div class="page-head">
+    <div class="container">
+      <div class="kicker">Projects</div>
+      <h1 class="page-head__title">Things I have built</h1>
+      <p class="page-head__lead">
+        A curated selection of my public repositories. The featured projects reflect my main
+        directions; the list below collects smaller tools, course work, and learning projects with
+        clear technical or educational value.
+      </p>
+    </div>
+  </div>
+
+  <section class="section" aria-labelledby="featured-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Featured</div>
+          <h2 class="section-title" id="featured-title">Main projects</h2>
+        </div>
+        <p class="section-note">
+          Four projects that represent mathematics and structured notes, multi-agent learning,
+          heterogeneous computing, and neural search.
+        </p>
+      </div>
+
+      <div class="grid grid--2">
+        {featuredProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="more-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Additional</div>
+          <h2 class="section-title" id="more-title">Other projects</h2>
+        </div>
+        <p class="section-note">
+          Smaller repositories and study work. Kept deliberately curated rather than automatically
+          listing every repository on my account.
+        </p>
+      </div>
+
+      <div class="grid grid--3">
+        {moreProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
