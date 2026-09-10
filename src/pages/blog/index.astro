@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import EssayRow from "../../components/EssayRow.astro";
 import CourseRow from "../../components/CourseRow.astro";
-import { getTree, sectionPath } from "../../lib/blog";
+import { getTree } from "../../lib/blog";
 
 const tree = await getTree();
 const essays = tree.children.find((section) => section.slug === "essays");
@@ -10,7 +10,6 @@ const courses = tree.children.find((section) => section.slug === "courses");
 const otherSections = tree.children.filter(
   (section) => section.slug !== "essays" && section.slug !== "courses",
 );
-const recentEssays = (essays?.articles ?? []).slice(0, 8);
 ---
 
 <BaseLayout
@@ -18,58 +17,55 @@ const recentEssays = (essays?.articles ?? []).slice(0, 8);
   description="Essays, course notes, and technical writing by Li Jinshuo."
 >
   <div class="page-head">
-    <div class="container">
+    <div class="container container--editorial">
       <h1 class="page-head__title">Writing</h1>
       <p class="page-head__lead">Essays, course notes, and technical writing.</p>
     </div>
   </div>
 
   <section class="section section--tight">
-    <div class="container">
-      {
-        essays && (
-          <div class="index-block">
-            <div class="index-label">{essays.name}</div>
-            <div class="essay-list">
-              {recentEssays.map((entry) => (
-                <EssayRow entry={entry} />
-              ))}
+    <div class="container container--editorial">
+      <div class="writing-split">
+        {
+          essays && (
+            <div class="writing-split__main">
+              <div class="index-label">{essays.name}</div>
+              <div class="essay-list">
+                {essays.articles.map((entry) => (
+                  <EssayRow entry={entry} />
+                ))}
+              </div>
             </div>
-            <a class="index-more" href={sectionPath(essays.slug)}>
-              View all essays →
-            </a>
-          </div>
-        )
-      }
+          )
+        }
 
-      {
-        courses && (
-          <div class="index-block">
-            <div class="index-label">{courses.name}</div>
-            <div class="course-list">
-              {courses.children.map((child) => (
-                <CourseRow node={child} />
+        {
+          (courses || otherSections.length > 0) && (
+            <aside class="writing-split__aside">
+              {courses && (
+                <div class="writing-split__group">
+                  <div class="index-label">{courses.name}</div>
+                  <div class="course-list">
+                    {courses.children.map((child) => (
+                      <CourseRow node={child} />
+                    ))}
+                  </div>
+                </div>
+              )}
+              {otherSections.map((section) => (
+                <div class="writing-split__group">
+                  <div class="index-label">{section.name}</div>
+                  <div class="essay-list">
+                    {section.articles.map((entry) => (
+                      <EssayRow entry={entry} />
+                    ))}
+                  </div>
+                </div>
               ))}
-            </div>
-            <a class="index-more" href={sectionPath(courses.slug)}>
-              View all courses →
-            </a>
-          </div>
-        )
-      }
-
-      {
-        otherSections.map((section) => (
-          <div class="index-block">
-            <div class="index-label">{section.name}</div>
-            <div class="essay-list">
-              {section.articles.map((entry) => (
-                <EssayRow entry={entry} />
-              ))}
-            </div>
-          </div>
-        ))
-      }
+            </aside>
+          )
+        }
+      </div>
     </div>
   </section>
 </BaseLayout>

@@ -17,11 +17,13 @@ const hasChildren = node.children.length > 0;
 const hasArticles = node.articles.length > 0;
 const ordered = node.articles.some((entry) => typeof entry.data.order === "number");
 const { code, title } = splitSectionName(node.name);
+const childNoun = node.slug === "courses" ? "course" : "section";
+const pad = (value: number) => String(value).padStart(2, "0");
 ---
 
 <BaseLayout title={node.name} description={description}>
   <div class="page-head">
-    <div class="container">
+    <div class="container container--editorial">
       <nav class="article__breadcrumb" aria-label="Breadcrumb">
         <a href="/blog/">Blog</a>
         {
@@ -39,7 +41,7 @@ const { code, title } = splitSectionName(node.name);
   </div>
 
   <section class="section section--tight">
-    <div class="container">
+    <div class="container container--editorial">
       {
         Intro && (
           <div class="section-intro prose">
@@ -50,29 +52,47 @@ const { code, title } = splitSectionName(node.name);
 
       {
         hasChildren && (
-          <div class="course-list">
-            {node.children.map((child) => (
-              <CourseRow node={child} description />
-            ))}
-          </div>
+          <>
+            <div class="index-count">
+              {pad(node.children.length)} {node.children.length === 1 ? childNoun : `${childNoun}s`}
+            </div>
+            <div class="course-list">
+              {node.children.map((child) => (
+                <CourseRow node={child} description />
+              ))}
+            </div>
+          </>
         )
       }
 
       {
-        hasArticles &&
-          (ordered ? (
-            <div class="note-list">
-              {node.articles.map((entry, index) => (
-                <NoteRow entry={entry} index={index + 1} />
-              ))}
+        hasArticles && (
+          <>
+            <div class="index-count">
+              {pad(node.articles.length)}{" "}
+              {ordered
+                ? node.articles.length === 1
+                  ? "note"
+                  : "notes"
+                : node.articles.length === 1
+                  ? "essay"
+                  : "essays"}
             </div>
-          ) : (
-            <div class="essay-list">
-              {node.articles.map((entry) => (
-                <EssayRow entry={entry} />
-              ))}
-            </div>
-          ))
+            {ordered ? (
+              <div class="note-list">
+                {node.articles.map((entry, index) => (
+                  <NoteRow entry={entry} index={index + 1} />
+                ))}
+              </div>
+            ) : (
+              <div class="essay-list">
+                {node.articles.map((entry, index) => (
+                  <EssayRow entry={entry} index={index + 1} />
+                ))}
+              </div>
+            )}
+          </>
+        )
       }
 
       {
