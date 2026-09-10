@@ -1,6 +1,6 @@
 ---
 title: Essays
-description: 中文长文：随笔、评论与思考。
+description: Long-form essays and reflections.
 ---
 
-本栏目收录中文长文与随笔。它们篇幅不等，主题各异，但都写于真实的学习与生活之中。既有对个人经历的记录，也有对技术与时代的观察。
+This category collects long-form essays, ranging from personal memoir to commentary on technology and its times. The articles are written in Chinese.

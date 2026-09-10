@@ -1,6 +1,6 @@
 ---
 title: 悼词
-description: 暮春写下的一篇悼词，悼念四月、过往，以及那些被伤害过的魂灵。
+description: A prose eulogy written in late spring, mourning April, the past, and the self.
 date: 2026-04-30
 tags: [散文, 悼念]
 ---

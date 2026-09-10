@@ -1,6 +1,6 @@
 ---
 title: 盘根错节的根系和虬结的枝枝蔓蔓
-description: 一篇关于大一的纪实长文：从“重新开始”的错觉，到向内坍缩，再到重新向外生长。
+description: A first-year memoir about starting over, collapsing inward, and growing outward again.
 date: 2026-08-24
 tags: [随笔, 大学, 回忆]
 ---
