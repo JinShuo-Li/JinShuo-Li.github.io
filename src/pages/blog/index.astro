@@ -1,11 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PostCard from "../../components/PostCard.astro";
-import { getArticles, getCategories, categoryPath } from "../../lib/blog";
+import { getCategories, categoryPath } from "../../lib/blog";
 
 const categories = await getCategories();
-const articles = await getArticles();
-const recent = articles.slice(0, 8);
 ---
 
 <BaseLayout
@@ -16,15 +13,11 @@ const recent = articles.slice(0, 8);
     <div class="container">
       <div class="kicker">Blog</div>
       <h1 class="page-head__title">Notes and writing</h1>
-      <p class="page-head__lead">
-        Notes and essays on mathematics, machine learning, computer vision, and systems.
-      </p>
     </div>
   </div>
 
   <section class="section" aria-labelledby="categories-title">
     <div class="container">
-      {/* Each category is a folder under blog/, with a README.md that introduces the topic. */}
       <div class="section-head">
         <div>
           <div class="kicker">Categories</div>
@@ -41,37 +34,12 @@ const recent = articles.slice(0, 8);
                 <div class="category-card__count">
                   {category.articles.length} {category.articles.length === 1 ? "article" : "articles"}
                 </div>
-                {category.description && <p class="category-card__desc">{category.description}</p>}
                 <div class="category-card__more">Read category →</div>
               </a>
             ))}
           </div>
         ) : (
           <p class="empty-state">No categories yet.</p>
-        )
-      }
-    </div>
-  </section>
-
-  <section class="section section--tight" aria-labelledby="recent-title">
-    <div class="container">
-      {/* The most recent entries across all categories. */}
-      <div class="section-head">
-        <div>
-          <div class="kicker">Recent</div>
-          <h2 class="section-title" id="recent-title">Recent articles</h2>
-        </div>
-      </div>
-
-      {
-        recent.length > 0 ? (
-          <div class="post-list">
-            {recent.map((entry) => (
-              <PostCard entry={entry} />
-            ))}
-          </div>
-        ) : (
-          <p class="empty-state">No articles yet.</p>
         )
       }
     </div>

@@ -2,7 +2,6 @@
 import {
   articlePath,
   titleOf,
-  descriptionOf,
   dateOf,
   formatDate,
   readingTimeOf,
@@ -28,5 +27,4 @@ const readTime = readingTimeOf(entry);
     <span>{category}</span>
     <span>{readTime} min</span>
   </div>
-  {descriptionOf(entry) && <p class="post-card__desc">{descriptionOf(entry)}</p>}
 </a>
