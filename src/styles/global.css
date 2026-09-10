@@ -170,6 +170,16 @@ main {
   line-height: 1.75;
 }
 
+.section-note code,
+.page-head__lead code {
+  padding: 0.12em 0.4em;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(25, 23, 19, 0.05);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
 .lead {
   color: var(--muted);
   font-size: clamp(16px, 1.8vw, 18px);
@@ -1177,6 +1187,12 @@ main {
 }
 
 .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Only hide revealed content when JavaScript is available to show it. */
+html:not(.js) .reveal {
   opacity: 1;
   transform: none;
 }
