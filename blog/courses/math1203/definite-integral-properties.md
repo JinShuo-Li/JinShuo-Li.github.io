@@ -24,9 +24,11 @@ $$
 
 > **警示 (Warning)**: 
 > 虽然乘积函数是可积的, 但定积分**不满足**乘法的分配律. 即通常情况下:
-> $$
+>
+$$
 > \int_a^b f(x)g(x) dx \neq \left( \int_a^b f(x) dx \right) \cdot \left( \int_a^b g(x) dx \right)
-> $$
+>
+$$
 > 这一点必须时刻牢记, 这是初学者极易犯的错误.
 
 ### 3. 保序性 (Monotonicity)
