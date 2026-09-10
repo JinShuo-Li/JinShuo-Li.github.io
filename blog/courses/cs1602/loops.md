@@ -14,7 +14,7 @@ tags: [Python, Programming]
 
 ## 循环中的 else 子句
 
-Python 的 `for` 和 `while` 都可以搭配 `else` 使用。这是考试中的**逻辑陷阱**。
+Python 的 `for` 和 `while` 都可以搭配 `else` 使用。这是一个容易出错的**逻辑陷阱**。
 
 > **Note — else 什么时候执行？**
 >

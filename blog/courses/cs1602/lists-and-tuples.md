@@ -23,7 +23,7 @@ tags: [Python, Programming]
 - **Index**: `a[i]`。支持负数索引（-1 为最后一个）。
 - **Slice**: `a[start:stop:step]`。 **缺省值**: `start`默认为0，`stop`默认为长度，`step`默认为1。 *常用技巧*: `a[::-1]` (反转列表), `a[:]` (浅拷贝整个列表)。
 
-### 2. 修改 (Modification) - 重点
+### 2. 修改 (Modification)
 
 列表是可变的，支持原位修改。
 
@@ -174,7 +174,7 @@ c = copy.deepcopy(a) # 完全独立，修改 c 不会影响 a
 - `.count(x)`: 统计 x 出现的次数。
 - `.index(x)`: 返回 x 第一次出现的索引。
 
-## 特殊考点：没有"元组推导式"
+## 没有“元组推导式”
 
 > **Note — Tuple Comprehension 不存在**
 >
