@@ -148,8 +148,16 @@ export async function getArticles(): Promise<BlogEntry[]> {
 }
 
 export async function getRecentArticles(limit = 4): Promise<BlogEntry[]> {
-  const articles = await getArticles();
-  return articles.slice(0, limit);
+  const entries = await getCollection("blog", ({ data }) => data.draft !== true);
+  return entries
+    .filter((entry) => !isCategoryReadme(entry))
+    .sort((a, b) => {
+      const aTime = dateOf(a)?.getTime() ?? 0;
+      const bTime = dateOf(b)?.getTime() ?? 0;
+      if (bTime !== aTime) return bTime - aTime;
+      return titleOf(a).localeCompare(titleOf(b));
+    })
+    .slice(0, limit);
 }
 
 /* ------------------------------------------------------------------ */
