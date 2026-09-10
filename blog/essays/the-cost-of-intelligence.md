@@ -2,7 +2,7 @@
 title: 昂贵的智能：瓶颈，豪赌，与下一场技术革命
 description: An analysis of AI infrastructure spending, long-term lease commitments, and the mismatch between capital expenditure and returns.
 date: 2026-09-05
-tags: [人工智能, 资本市场, 技术趋势]
+tags: [AI, Technology, Markets]
 ---
 
 # 昂贵的智能：瓶颈，豪赌，与下一场技术革命

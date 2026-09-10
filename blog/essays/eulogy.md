@@ -2,7 +2,7 @@
 title: 悼词
 description: A prose eulogy written in late spring, mourning April, the past, and the self.
 date: 2026-04-30
-tags: [散文, 悼念]
+tags: [Essay, Eulogy]
 ---
 
 # 悼词

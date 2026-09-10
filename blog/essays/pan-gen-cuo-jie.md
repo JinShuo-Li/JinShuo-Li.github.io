@@ -2,7 +2,7 @@
 title: 盘根错节的根系和虬结的枝枝蔓蔓
 description: A first-year memoir about starting over, collapsing inward, and growing outward again.
 date: 2026-08-24
-tags: [随笔, 大学, 回忆]
+tags: [Essay, University, Memoir]
 ---
 
 # 盘根错节的根系和虬结的枝枝蔓蔓
