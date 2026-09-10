@@ -10,14 +10,14 @@ import { featuredProjects, moreProjects } from "../lib/site";
   description="Selected work across mathematics, machine learning, and systems."
 >
   <div class="page-head">
-    <div class="container">
+    <div class="container container--editorial">
       <h1 class="page-head__title">Projects</h1>
       <p class="page-head__lead">Selected work across mathematics, machine learning, and systems.</p>
     </div>
   </div>
 
   <section class="section section--tight">
-    <div class="container">
+    <div class="container container--editorial">
       <div class="feature-list">
         {
           featuredProjects.map((project, index) => (
@@ -29,7 +29,7 @@ import { featuredProjects, moreProjects } from "../lib/site";
   </section>
 
   <section class="section section--tight">
-    <div class="container">
+    <div class="container container--editorial">
       <div class="index-label">Other projects</div>
       <div class="archive-list">
         {moreProjects.map((project) => <ProjectArchiveRow project={project} />)}

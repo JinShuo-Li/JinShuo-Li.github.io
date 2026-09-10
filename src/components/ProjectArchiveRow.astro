@@ -10,8 +10,6 @@ const { project } = Astro.props;
 
 <a class="archive-row" href={project.url} target="_blank" rel="noopener">
   <span class="archive-row__name">{project.name}</span>
-  <span class="archive-row__meta">
-    {project.tags.join(" · ")}
-    <span class="archive-row__arrow" aria-hidden="true">→</span>
-  </span>
+  <span class="archive-row__meta">{project.tags.join(" · ")}</span>
+  <span class="archive-row__link">GitHub ↗</span>
 </a>
