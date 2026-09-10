@@ -903,6 +903,11 @@ main {
   margin-top: 1.8em;
 }
 
+/* Give consecutive paragraphs about half a line of extra breathing room. */
+.prose p + p {
+  margin-top: 2.8em;
+}
+
 .prose h2 {
   margin-top: 2.2em;
   padding-bottom: 0.3em;
