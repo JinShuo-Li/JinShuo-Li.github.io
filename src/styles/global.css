@@ -905,7 +905,7 @@ main {
 
 /* Give consecutive paragraphs a little extra breathing room. */
 .prose p + p {
-  margin-top: 2.3em;
+  margin-top: 2em;
 }
 
 .prose h2 {
