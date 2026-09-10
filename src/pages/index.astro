@@ -1,0 +1,172 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import PostCard from "../components/PostCard.astro";
+import { site, featuredProjects, interests } from "../lib/site";
+import { getRecentArticles } from "../lib/blog";
+
+const recent = await getRecentArticles(3);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="reveal">
+        <div class="hero__eyebrow">{site.program} · SJTU</div>
+        <h1 class="hero__title">{site.name}</h1>
+        <p class="hero__tagline">{site.tagline}</p>
+        <p class="hero__lead">
+          I am an undergraduate in the {site.program} at {site.affiliation}. My interests sit
+          between mathematics, machine learning and computer vision, and computer systems. I like
+          work that is conceptually clear, carefully implemented, and written up honestly.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="/projects/">View projects</a>
+          <a class="btn btn--ghost" href="/blog/">Read the blog</a>
+          <a class="btn btn--ghost" href={`mailto:${site.emailSchool}`}>Get in touch</a>
+        </div>
+      </div>
+
+      <aside class="profile-card reveal" aria-label="Profile summary">
+        <div class="profile-card__head">
+          <img
+            class="profile-card__avatar"
+            src={site.avatar}
+            alt="Li Jinshuo"
+            width="66"
+            height="66"
+            loading="lazy"
+          />
+          <div>
+            <div class="profile-card__name">{site.name}</div>
+            <div class="profile-card__role">
+              Undergraduate<br />{site.affiliation}
+            </div>
+          </div>
+        </div>
+        <div class="profile-card__list">
+          <div class="profile-card__item">
+            <span>Program</span>
+            <strong>{site.program}</strong>
+          </div>
+          <div class="profile-card__item">
+            <span>Focus</span>
+            <strong>Mathematics · Machine Learning · Systems</strong>
+          </div>
+          <div class="profile-card__item">
+            <span>Tools</span>
+            <strong>Python · C++ · LaTeX · PyTorch</strong>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section reveal" aria-labelledby="focus-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Focus</div>
+          <h2 class="section-title" id="focus-title">What I spend time on</h2>
+        </div>
+        <p class="section-note">
+          A short statement of the areas I work in, and how they connect. The projects and writing
+          on this site are the concrete side of these interests.
+        </p>
+      </div>
+
+      <div class="grid grid--4">
+        {
+          interests.map((item, index) => (
+            <article class="card focus-card">
+              <div class="focus-card__index">{String(index + 1).padStart(2, "0")}</div>
+              <h3 class="card__title">{item.title}</h3>
+              <p class="card__text">{item.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" aria-labelledby="projects-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Selected work</div>
+          <h2 class="section-title" id="projects-title">Featured projects</h2>
+        </div>
+        <div>
+          <p class="section-note">
+            Four repositories that reflect the directions I care about: structured mathematics,
+            learning systems, heterogeneous computing, and model-based search.
+          </p>
+          <a class="link-more" href="/projects/">All projects →</a>
+        </div>
+      </div>
+
+      <div class="grid grid--2">
+        {featuredProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" aria-labelledby="writing-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Writing</div>
+          <h2 class="section-title" id="writing-title">Latest writing</h2>
+        </div>
+        <div>
+          <p class="section-note">
+            Notes on mathematics, learning systems, and computing, written as I study and build.
+          </p>
+          <a class="link-more" href="/blog/">All writing →</a>
+        </div>
+      </div>
+
+      {
+        recent.length > 0 ? (
+          <div class="post-list post-list--compact">
+            {recent.map((entry) => (
+              <PostCard entry={entry} />
+            ))}
+          </div>
+        ) : (
+          <p class="empty-state">Writing will appear here as new notes are published.</p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section reveal" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Contact</div>
+          <h2 class="section-title" id="contact-title">Get in touch</h2>
+        </div>
+        <p class="section-note">
+          Open to questions, technical discussion, and collaboration on mathematics, learning, and
+          systems.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <a class="contact-card" href={`mailto:${site.emailSchool}`}>
+          <span>School email</span>
+          <strong>{site.emailSchool}</strong>
+        </a>
+        <a class="contact-card" href={`mailto:${site.emailPersonal}`}>
+          <span>Personal email</span>
+          <strong>{site.emailPersonal}</strong>
+        </a>
+        <a class="contact-card" href={site.github} target="_blank" rel="noopener">
+          <span>GitHub</span>
+          <strong>@JinShuo-Li</strong>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
