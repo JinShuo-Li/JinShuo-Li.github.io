@@ -90,8 +90,15 @@ export function dateOf(entry: BlogEntry): Date | null {
 export function readingTimeOf(entry: BlogEntry): number {
   const body = stripFrontmatter(entry.body ?? "");
   const text = body.replace(/```[\s\S]*?```/g, " ").replace(/<[^>]+>/g, " ");
-  const words = text.trim().split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / 200));
+  const cjkPattern = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/g;
+  const cjkCount = (text.match(cjkPattern) ?? []).length;
+  const latinWords = text
+    .replace(cjkPattern, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+  const minutes = cjkCount / 400 + latinWords / 200;
+  return Math.max(1, Math.round(minutes));
 }
 
 export function sortArticles(entries: BlogEntry[]): BlogEntry[] {
