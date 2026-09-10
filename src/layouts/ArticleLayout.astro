@@ -49,7 +49,7 @@ const next = index >= 0 && index < node.articles.length - 1 ? node.articles[inde
         <h1 class="article__title">{title}</h1>
         <div class="article__meta">
           {date && <span>{date}</span>}
-          {node.name && <span class="dot">{node.name}</span>}
+          {node.name && <span class="dot">{splitSectionName(node.name).code}</span>}
           <span class="dot">{readTime} min read</span>
         </div>
       </header>
@@ -82,7 +82,9 @@ const next = index >= 0 && index < node.articles.length - 1 ? node.articles[inde
       }
 
       <footer class="article__footer">
-        <a class="btn btn--link" href={sectionPath(node.slug)}>← Back to {node.name}</a>
+        <a class="btn btn--link" href={sectionPath(node.slug)}>
+          ← Back to {splitSectionName(node.name).code}
+        </a>
         {
           tags.length > 0 && (
             <div class="article__tags">
