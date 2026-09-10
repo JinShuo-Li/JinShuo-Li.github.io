@@ -1,5 +1,5 @@
 ---
-title: MATH1203 — Mathematical Analysis I
+title: MATH1203
 description: Personal review notes for Mathematical Analysis I, covering integration and series.
 order: 2
 ---

@@ -1,11 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import PostCard from "../components/PostCard.astro";
 import { site, featuredProjects, interests } from "../lib/site";
-import { getRecentArticles } from "../lib/blog";
-
-const recent = await getRecentArticles(3);
 ---
 
 <BaseLayout>
@@ -98,30 +94,6 @@ const recent = await getRecentArticles(3);
       <div class="grid grid--2">
         {featuredProjects.map((project) => <ProjectCard project={project} />)}
       </div>
-    </div>
-  </section>
-
-  <section class="section reveal" aria-labelledby="writing-title">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="kicker">Writing</div>
-          <h2 class="section-title" id="writing-title">Latest writing</h2>
-        </div>
-        <a class="link-more" href="/blog/">All writing →</a>
-      </div>
-
-      {
-        recent.length > 0 ? (
-          <div class="post-list post-list--compact">
-            {recent.map((entry) => (
-              <PostCard entry={entry} />
-            ))}
-          </div>
-        ) : (
-          <p class="empty-state">Writing will appear here as new notes are published.</p>
-        )
-      }
     </div>
   </section>
 

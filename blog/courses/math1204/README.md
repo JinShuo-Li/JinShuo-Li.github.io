@@ -1,5 +1,5 @@
 ---
-title: MATH1204 — Mathematical Analysis II
+title: MATH1204
 description: Personal notes for Mathematical Analysis II, covering series of functions, multivariable analysis, integrals, and Fourier series.
 order: 3
 ---

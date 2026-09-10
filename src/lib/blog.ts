@@ -213,14 +213,14 @@ function buildTree(entries: BlogEntry[]): BlogNode {
       return a.name.localeCompare(b.name);
     });
     node.ancestors = ancestors;
-    node.totalArticles =
-      node.articles.length + node.children.reduce((sum, child) => sum + child.totalArticles, 0);
     node.children.forEach((child) =>
       finalize(child, [
         ...ancestors,
         ...(node.slug ? [{ name: node.name, slug: node.slug }] : []),
       ]),
     );
+    node.totalArticles =
+      node.articles.length + node.children.reduce((sum, child) => sum + child.totalArticles, 0);
   };
 
   finalize(root, []);

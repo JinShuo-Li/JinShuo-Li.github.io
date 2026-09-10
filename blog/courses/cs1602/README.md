@@ -1,5 +1,5 @@
 ---
-title: CS1602 — Introduction to Computing
+title: CS1602
 description: Personal notes for Introduction to Computing and Python programming.
 order: 1
 ---
