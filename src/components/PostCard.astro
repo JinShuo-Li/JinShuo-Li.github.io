@@ -1,0 +1,32 @@
+---
+import {
+  articlePath,
+  titleOf,
+  descriptionOf,
+  dateOf,
+  formatDate,
+  readingTimeOf,
+  categoryOf,
+  displayName,
+  type BlogEntry,
+} from "../lib/blog";
+
+interface Props {
+  entry: BlogEntry;
+}
+
+const { entry } = Astro.props;
+const date = formatDate(dateOf(entry));
+const category = displayName(categoryOf(entry));
+const readTime = readingTimeOf(entry);
+---
+
+<a class="post-card reveal" href={articlePath(entry)}>
+  <h3 class="post-card__title">{titleOf(entry)}</h3>
+  <div class="post-card__meta">
+    {date && <span>{date}</span>}
+    <span>{category}</span>
+    <span>{readTime} min</span>
+  </div>
+  {descriptionOf(entry) && <p class="post-card__desc">{descriptionOf(entry)}</p>}
+</a>

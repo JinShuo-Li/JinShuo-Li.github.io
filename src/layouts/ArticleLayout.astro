@@ -1,0 +1,64 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import {
+  titleOf,
+  descriptionOf,
+  dateOf,
+  formatDate,
+  readingTimeOf,
+  categoryOf,
+  displayName,
+  categoryPath,
+  type BlogEntry,
+} from "../lib/blog";
+
+interface Props {
+  entry: BlogEntry;
+}
+
+const { entry } = Astro.props;
+const title = titleOf(entry);
+const description = descriptionOf(entry) || undefined;
+const date = formatDate(dateOf(entry));
+const category = categoryOf(entry);
+const categoryName = displayName(category);
+const readTime = readingTimeOf(entry);
+const tags = entry.data.tags ?? [];
+---
+
+<BaseLayout title={title} description={description} type="article">
+  <article class="article">
+    <div class="container">
+      <header class="article__header">
+        <nav class="article__breadcrumb" aria-label="Breadcrumb">
+          <a href="/blog/">Blog</a>
+          <span aria-hidden="true"> / </span>
+          <a href={categoryPath(category)}>{categoryName}</a>
+        </nav>
+        <h1 class="article__title">{title}</h1>
+        <div class="article__meta">
+          {date && <span>{date}</span>}
+          <span class="dot">{categoryName}</span>
+          <span class="dot">{readTime} min read</span>
+        </div>
+      </header>
+
+      <div class="article__body prose">
+        <slot />
+      </div>
+
+      <footer class="article__footer">
+        <a class="btn btn--link" href={categoryPath(category)}>← Back to {categoryName}</a>
+        {
+          tags.length > 0 && (
+            <div class="article__tags">
+              {tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          )
+        }
+      </footer>
+    </div>
+  </article>
+</BaseLayout>

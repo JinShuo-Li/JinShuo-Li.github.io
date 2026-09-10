@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+import { getArticles, getCategories, categoryPath } from "../../lib/blog";
+
+const categories = await getCategories();
+const articles = await getArticles();
+const recent = articles.slice(0, 8);
+---
+
+<BaseLayout
+  title="Blog"
+  description="Notes on mathematics, machine learning, computer vision, and systems by Li Jinshuo."
+>
+  <div class="page-head">
+    <div class="container">
+      <div class="kicker">Blog</div>
+      <h1 class="page-head__title">Notes and writing</h1>
+      <p class="page-head__lead">
+        Working notes on mathematics, learning systems, and computing. Entries are grouped by
+        category and added directly from Markdown files in the repository.
+      </p>
+    </div>
+  </div>
+
+  <section class="section" aria-labelledby="categories-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Categories</div>
+          <h2 class="section-title" id="categories-title">Browse by category</h2>
+        </div>
+        <p class="section-note">
+          Each category is a folder under <code>blog/</code>, with a <code>README.md</code> that
+          introduces the topic.
+        </p>
+      </div>
+
+      {
+        categories.length > 0 ? (
+          <div class="grid grid--3">
+            {categories.map((category) => (
+              <a class="category-card reveal" href={categoryPath(category.slug)}>
+                <h3 class="category-card__name">{category.name}</h3>
+                <div class="category-card__count">
+                  {category.articles.length} {category.articles.length === 1 ? "article" : "articles"}
+                </div>
+                {category.description && <p class="category-card__desc">{category.description}</p>}
+                <div class="category-card__more">Read category →</div>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p class="empty-state">
+            No categories yet. Add a folder under <code>blog/</code> to get started.
+          </p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="recent-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Recent</div>
+          <h2 class="section-title" id="recent-title">Recent articles</h2>
+        </div>
+        <p class="section-note">The most recent entries across all categories.</p>
+      </div>
+
+      {
+        recent.length > 0 ? (
+          <div class="post-list">
+            {recent.map((entry) => (
+              <PostCard entry={entry} />
+            ))}
+          </div>
+        ) : (
+          <p class="empty-state">No articles yet.</p>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
