@@ -1,0 +1,23 @@
+---
+import type { Project } from "../lib/site";
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+---
+
+<article class="feature">
+  <div class="feature__top">
+    <span class="feature__index">{String(index).padStart(2, "0")}</span>
+    <span class="feature__domain">{project.domain}</span>
+  </div>
+  <div class="feature__head">
+    <h2 class="feature__name">{project.name}</h2>
+    <a class="feature__link" href={project.url} target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+  <p class="feature__desc">{project.blurb}</p>
+  <div class="feature__tags">{project.tags.join(" · ")}</div>
+</article>

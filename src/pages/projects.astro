@@ -1,46 +1,38 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ProjectCard from "../components/ProjectCard.astro";
+import ProjectFeature from "../components/ProjectFeature.astro";
+import ProjectArchiveRow from "../components/ProjectArchiveRow.astro";
 import { featuredProjects, moreProjects } from "../lib/site";
 ---
 
 <BaseLayout
   title="Projects"
-  description="Selected and additional software projects by Li Jinshuo, spanning mathematics, machine learning, systems, and tooling."
+  description="Selected work across mathematics, machine learning, and systems."
 >
   <div class="page-head">
     <div class="container">
-      <div class="kicker">Projects</div>
-      <h1 class="page-head__title">Things I have built</h1>
+      <h1 class="page-head__title">Projects</h1>
+      <p class="page-head__lead">Selected work across mathematics, machine learning, and systems.</p>
     </div>
   </div>
 
-  <section class="section" aria-labelledby="featured-title">
+  <section class="section section--tight">
     <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="kicker">Featured</div>
-          <h2 class="section-title" id="featured-title">Main projects</h2>
-        </div>
-      </div>
-
-      <div class="grid grid--2">
-        {featuredProjects.map((project) => <ProjectCard project={project} />)}
+      <div class="feature-list">
+        {
+          featuredProjects.map((project, index) => (
+            <ProjectFeature project={project} index={index + 1} />
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <section class="section section--tight" aria-labelledby="more-title">
+  <section class="section section--tight">
     <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="kicker">Additional</div>
-          <h2 class="section-title" id="more-title">Other projects</h2>
-        </div>
-      </div>
-
-      <div class="grid grid--3">
-        {moreProjects.map((project) => <ProjectCard project={project} />)}
+      <div class="index-label">Other projects</div>
+      <div class="archive-list">
+        {moreProjects.map((project) => <ProjectArchiveRow project={project} />)}
       </div>
     </div>
   </section>

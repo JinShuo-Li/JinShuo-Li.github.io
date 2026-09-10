@@ -18,6 +18,7 @@ export type Project = {
   name: string;
   url: string;
   blurb: string;
+  domain: string;
   tags: string[];
 };
 
@@ -25,6 +26,7 @@ export const featuredProjects: Project[] = [
   {
     name: "Mathematical-Note",
     url: "https://github.com/JinShuo-Li/Mathematical-Note",
+    domain: "Mathematics",
     blurb:
       "A bilingual LaTeX book on mathematics and axiomatization, moving from logic and set theory through analysis, linear algebra, abstract algebra, topology, complex analysis, graph theory, and probability.",
     tags: ["LaTeX", "Mathematics", "Notes"],
@@ -32,6 +34,7 @@ export const featuredProjects: Project[] = [
   {
     name: "simeco",
     url: "https://github.com/JinShuo-Li/simeco",
+    domain: "Multi-agent Learning",
     blurb:
       "A spatial predator–prey simulation for studying emergent communication: individually learning animals, costly meaning-free signals, and a batched CPU/XPU execution backend.",
     tags: ["Python", "Multi-agent", "PyTorch", "XPU"],
@@ -39,6 +42,7 @@ export const featuredProjects: Project[] = [
   {
     name: "heterotorch",
     url: "https://github.com/JinShuo-Li/heterotorch",
+    domain: "Systems",
     blurb:
       "A PyTorch-style execution runtime for Intel CPU, XPU, and OpenVINO NPU devices, with explicit compilation, mixed-device execution, and reproducible benchmarks.",
     tags: ["Python", "Systems", "XPU", "NPU"],
@@ -46,6 +50,7 @@ export const featuredProjects: Project[] = [
   {
     name: "ChessModel",
     url: "https://github.com/JinShuo-Li/ChessModel",
+    domain: "Neural Search",
     blurb:
       "A neural chess engine that distills Stockfish analysis into a compact policy/WDL network and plays through batched PUCT search on Intel Arc XPU.",
     tags: ["Python", "Distillation", "PUCT", "XPU"],
@@ -56,6 +61,7 @@ export const moreProjects: Project[] = [
   {
     name: "Matrix-Library",
     url: "https://github.com/JinShuo-Li/Matrix-Library",
+    domain: "Linear Algebra",
     blurb:
       "A compact linear algebra toolkit in pure Python built around one unified Matrix class, with exact rational and floating-point modes, LU/Cholesky/QR, eigenpairs, SVD, and Jordan form.",
     tags: ["Python", "Linear Algebra"],
@@ -63,6 +69,7 @@ export const moreProjects: Project[] = [
   {
     name: "FACC",
     url: "https://github.com/JinShuo-Li/FACC",
+    domain: "Computer Architecture",
     blurb:
       "A small FPGA-based computer written in Verilog: an 8-bit datapath, 16-bit instructions, memory-mapped I/O, and a UART bootloader that loads programs without re-synthesis.",
     tags: ["Verilog", "FPGA", "Computer Architecture"],
@@ -70,6 +77,7 @@ export const moreProjects: Project[] = [
   {
     name: "Super-Calculator",
     url: "https://github.com/JinShuo-Li/Super-Calculator",
+    domain: "Desktop Tooling",
     blurb:
       "A modular PyQt6 desktop workbench combining a calculator, a linear algebra workspace, an interactive graph algorithms lab, and a plotting panel.",
     tags: ["Python", "PyQt6", "NumPy"],
@@ -77,6 +85,7 @@ export const moreProjects: Project[] = [
   {
     name: "Courses",
     url: "https://github.com/JinShuo-Li/Courses",
+    domain: "Course Notes",
     blurb:
       "Undergraduate course materials for the IEEE Honor Program at Shanghai Jiao Tong University, spanning mathematics, physics, and programming.",
     tags: ["SJTU", "Course Notes"],
@@ -84,6 +93,7 @@ export const moreProjects: Project[] = [
   {
     name: "MiniTorch",
     url: "https://github.com/JinShuo-Li/MiniTorch",
+    domain: "Autodiff",
     blurb:
       "A small Python implementation of core Torch primitives, written to understand tensors, automatic differentiation, and training loops from first principles.",
     tags: ["Python", "Autodiff"],
@@ -91,6 +101,7 @@ export const moreProjects: Project[] = [
   {
     name: "VMANO",
     url: "https://github.com/JinShuo-Li/VMANO",
+    domain: "Computer Vision",
     blurb:
       "A visualization tool for the MANO hand model, used to inspect hand pose and mesh structure.",
     tags: ["Python", "Computer Vision"],
@@ -98,6 +109,7 @@ export const moreProjects: Project[] = [
   {
     name: "learning-rust",
     url: "https://github.com/JinShuo-Li/learning-rust",
+    domain: "Rust",
     blurb:
       "A personal repository of Rust exercises and small programs collected while learning the language.",
     tags: ["Rust", "Learning"],
@@ -105,6 +117,7 @@ export const moreProjects: Project[] = [
   {
     name: "Elevator-Simulator",
     url: "https://github.com/JinShuo-Li/Elevator-Simulator",
+    domain: "Simulation",
     blurb:
       "A group control system simulation that explores scheduling and dispatching for multi-elevator environments.",
     tags: ["Python", "Simulation"],
