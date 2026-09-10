@@ -1,5 +1,6 @@
 ---
 title: 盘根错节的根系和虬结的枝枝蔓蔓
+displayTitle: "Tangled Roots and Intertwining Branches"
 description: A first-year memoir about starting over, collapsing inward, and growing outward again.
 date: 2026-08-24
 tags: [Essay, University, Memoir]

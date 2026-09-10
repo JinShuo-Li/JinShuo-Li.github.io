@@ -1,5 +1,6 @@
 ---
 title: 昂贵的智能：瓶颈，豪赌，与下一场技术革命
+displayTitle: "Expensive Intelligence: Bottlenecks, Bets, and the Next Technological Revolution"
 description: An analysis of AI infrastructure spending, long-term lease commitments, and the mismatch between capital expenditure and returns.
 date: 2026-09-05
 tags: [AI, Technology, Markets]

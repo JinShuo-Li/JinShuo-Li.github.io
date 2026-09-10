@@ -73,6 +73,11 @@ export function titleOf(entry: BlogEntry): string {
   return displayName(slugOf(entry));
 }
 
+/** Title used in index/list/archive UIs. Falls back to the article title. */
+export function displayTitleOf(entry: BlogEntry): string {
+  return entry.data.displayTitle?.trim() || titleOf(entry);
+}
+
 export function descriptionOf(entry: BlogEntry): string {
   const frontmatterDescription = entry.data.description?.trim();
   if (frontmatterDescription) return frontmatterDescription;

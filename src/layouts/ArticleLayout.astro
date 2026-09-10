@@ -2,6 +2,7 @@
 import BaseLayout from "./BaseLayout.astro";
 import {
   titleOf,
+  displayTitleOf,
   descriptionOf,
   dateOf,
   formatDate,
@@ -64,7 +65,7 @@ const next = index >= 0 && index < node.articles.length - 1 ? node.articles[inde
             {prev ? (
               <a class="article__nav-link" href={articlePath(prev)}>
                 <span>Previous</span>
-                <strong>{titleOf(prev)}</strong>
+                <strong>{displayTitleOf(prev)}</strong>
               </a>
             ) : (
               <span />
@@ -72,7 +73,7 @@ const next = index >= 0 && index < node.articles.length - 1 ? node.articles[inde
             {next ? (
               <a class="article__nav-link article__nav-link--next" href={articlePath(next)}>
                 <span>Next</span>
-                <strong>{titleOf(next)}</strong>
+                <strong>{displayTitleOf(next)}</strong>
               </a>
             ) : (
               <span />

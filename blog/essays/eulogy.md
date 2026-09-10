@@ -1,5 +1,6 @@
 ---
 title: 悼词
+displayTitle: "Elegy"
 description: A prose eulogy written in late spring, mourning April, the past, and the self.
 date: 2026-04-30
 tags: [Essay, Eulogy]
